@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="h-full bg-gray-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Site Mega Responsivo Inteligente</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="h-full min-h-screen flex flex-col bg-gradient-to-tr from-slate-800 via-slate-900 to-slate-950 text-white relative">
+    <nav class="sticky top-0 z-20 bg-opacity-90 backdrop-blur shadow-md">
+      <div class="max-w-4xl mx-auto flex justify-between items-center p-4">
+        <span class="text-2xl font-extrabold tracking-wide">Evento Inteligente</span>
+        <button id="menu-toggle" class="sm:hidden text-slate-300 text-3xl focus:outline-none" aria-label="Abrir Menu">&#9776;</button>
+        <ul id="menu" class="hidden sm:flex gap-4 text-lg font-medium transition-all">
+          <li><button class="menu-btn" data-menu="geral">Geral</button></li>
+          <li><button class="menu-btn" data-menu="30">30/08</button></li>
+          <li><button class="menu-btn" data-menu="31">31/08</button></li>
+        </ul>
+      </div>
+      <ul id="mobile-menu" class="sm:hidden hidden flex-col px-4 pb-2 text-lg font-medium bg-slate-900">
+        <li><button class="menu-btn w-full text-left py-2" data-menu="geral">Geral</button></li>
+        <li><button class="menu-btn w-full text-left py-2" data-menu="30">30/08</button></li>
+        <li><button class="menu-btn w-full text-left py-2" data-menu="31">31/08</button></li>
+      </ul>
+    </nav>
+    <main class="flex-1 flex flex-col items-center px-2 pb-10">
+      <!-- Banner Section -->
+      <section class="w-full max-w-4xl mt-6">
+        <div class="aspect-w-4 aspect-h-1 relative rounded-xl overflow-hidden shadow-xl border border-slate-700">
+          <img id="banner-img" src="https://placehold.co/1600x400/png?text=Seu+Banner+1600x400" alt="Banner" class="h-full w-full object-cover object-center transition-all duration-300" />
+          <input type="file" id="banner-upload" accept="image/*" class="absolute bottom-4 right-4 bg-slate-800 bg-opacity-80 rounded-md px-3 py-2 text-sm font-medium cursor-pointer file:opacity-0 file:absolute file:w-full file:h-full opacity-80 hover:opacity-100 transition-opacity text-white" aria-label="Trocar Banner"/>
+          <label for="banner-upload" class="absolute bottom-4 right-4 flex items-center gap-1 bg-slate-800 bg-opacity-70 px-3 py-1 rounded shadow cursor-pointer text-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5m0 0l5 5m-5-5v12" /></svg>
+            Trocar banner
+          </label>
+        </div>
+      </section>
+      <!-- Content Section -->
+      <section class="w-full max-w-3xl mt-8 transition-all" id="content">
+        <!-- Conteúdo dinâmico aqui -->
+      </section>
+    </main>
+    <footer class="w-full text-center text-xs p-3 text-slate-400 bg-slate-900 bg-opacity-80">
+      &copy; 2025 Evento Inteligente — Feito com <span class="text-pink-500">&hearts;</span>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
