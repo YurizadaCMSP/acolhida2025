@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Banner aspect ratio utility (16:4 = 4:1) */
+.aspect-w-4 {
+  aspect-ratio: 4 / 1;
+}
+.aspect-h-1 {
+  aspect-ratio: 4 / 1;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #1e293b;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 8px;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+#menu button.active,
+#mobile-menu button.active {
+  @apply bg-gradient-to-r from-cyan-700 to-blue-800 text-white rounded px-3 py-1 shadow font-bold;
+}
+
+.menu-btn {
+  @apply px-3 py-1 rounded hover:bg-slate-700 transition-colors duration-150 focus:outline-none;
+}
+
+/* File input hacks */
+#banner-upload {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: -1;
+}
