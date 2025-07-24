@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema avançado de geolocalização de alta precisão">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>GeoTracker Precision</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <header>
+        <h1>GeoTracker<span>Precision</span></h1>
+        <div class="status-indicator">
+            <span id="status-icon" class="status-offline"></span>
+            <span id="status-text">Aguardando permissão</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="dashboard">
+            <div class="card primary-info">
+                <div class="card-content">
+                    <h2>Coordenadas Atuais</h2>
+                    <div class="coordinates">
+                        <div class="coordinate-group">
+                            <span class="label">Latitude:</span>
+                            <span id="latitude" class="value">---.--------</span>
+                            <span class="unit">°</span>
+                        </div>
+                        <div class="coordinate-group">
+                            <span class="label">Longitude:</span>
+                            <span id="longitude" class="value">---.--------</span>
+                            <span class="unit">°</span>
+                        </div>
+                        <div class="coordinate-group">
+                            <span class="label">Altitude:</span>
+                            <span id="altitude" class="value">---.--</span>
+                            <span class="unit">m</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="precision-meter">
+                    <div class="meter-label">Precisão</div>
+                    <div class="meter-value">
+                        <span id="accuracy">---.--</span>
+                        <span class="unit">m</span>
+                    </div>
+                    <div class="meter-bar">
+                        <div id="accuracy-bar" class="meter-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card motion-info">
+                <h2>Dados de Movimento</h2>
+                <div class="motion-grid">
+                    <div class="motion-item">
+                        <span class="label">Velocidade</span>
+                        <span id="speed" class="value">---.--</span>
+                        <span class="unit">m/s</span>
+                    </div>
+                    <div class="motion-item">
+                        <span class="label">Direção</span>
+                        <span id="heading" class="value">---</span>
+                        <span class="unit">°</span>
+                    </div>
+                    <div class="motion-item">
+                        <span class="label">Precisão Alt.</span>
+                        <span id="altitude-accuracy" class="value">---.--</span>
+                        <span class="unit">m</span>
+                    </div>
+                    <div class="motion-item">
+                        <span class="label">Última Atualização</span>
+                        <span id="timestamp" class="value">--:--:--</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="visualization">
+            <div class="card visualization-container">
+                <h2>Visualização</h2>
+                <div class="canvas-container">
+                    <canvas id="position-canvas" width="600" height="400"></canvas>
+                    <div class="canvas-controls">
+                        <button id="zoom-in" class="control-btn">+</button>
+                        <button id="zoom-out" class="control-btn">-</button>
+                        <button id="reset-view" class="control-btn">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="history">
+            <div class="card history-container">
+                <h2>Histórico de Posições</h2>
+                <div class="table-container">
+                    <table id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Horário</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Precisão</th>
+                                <th>Altitude</th>
+                                <th>Velocidade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-data">
+                            <!-- Dados preenchidos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="history-controls">
+                    <button id="clear-history" class="btn">Limpar Histórico</button>
+                    <button id="export-history" class="btn primary">Exportar (CSV)</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="advanced-options">
+            <div class="card">
+                <h2>Configurações Avançadas</h2>
+                <div class="options-grid">
+                    <div class="option-group">
+                        <label for="update-interval">Intervalo de Atualização (ms)</label>
+                        <input type="number" id="update-interval" min="500" max="10000" step="500" value="1000">
+                    </div>
+                    <div class="option-group">
+                        <label for="position-filter">Filtro de Posição (m)</label>
+                        <input type="number" id="position-filter" min="0" max="50" step="1" value="0">
+                    </div>
+                    <div class="option-group">
+                        <label for="avg-samples">Amostras para Média</label>
+                        <input type="number" id="avg-samples" min="1" max="20" step="1" value="5">
+                    </div>
+                    <div class="option-group checkbox">
+                        <input type="checkbox" id="enable-triangulation" checked>
+                        <label for="enable-triangulation">Usar triangulação simulada</label>
+                    </div>
+                </div>
+                <div class="option-controls">
+                    <button id="apply-settings" class="btn primary">Aplicar</button>
+                    <button id="reset-settings" class="btn">Restaurar Padrões</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="permission-modal" class="modal">
+        <div class="modal-content">
+            <h2>Permissão de Localização</h2>
+            <p>Este aplicativo requer acesso à sua localização para funcionar.</p>
+            <p>Por favor, autorize o acesso quando solicitado pelo navegador.</p>
+            <button id="request-permission" class="btn primary">Solicitar Acesso</button>
+        </div>
+    </section>
+
+    <section id="error-modal" class="modal">
+        <div class="modal-content">
+            <h2>Erro de Geolocalização</h2>
+            <p id="error-message">Ocorreu um erro ao acessar sua localização.</p>
+            <div class="error-details">
+                <h3>Possíveis soluções:</h3>
+                <ul id="error-solutions">
+                    <!-- Preenchido via JavaScript -->
+                </ul>
+            </div>
+            <button id="dismiss-error" class="btn">Fechar</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>GeoTracker Precision &copy; 2025 | <span id="browser-info">Carregando informações do navegador...</span></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
